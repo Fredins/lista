@@ -34,10 +34,8 @@ func database() *sql.DB {
 	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
-	} else {
-		log.Println("connected to db :)")
-	}
-	return db
+	} 	
+    return db
 }
 
 type Item struct {
@@ -63,7 +61,6 @@ func handleFetch(w http.ResponseWriter, r *http.Request) {
 		if err := rows.Scan(&i.Description, &i.Uuid, &i.Completed); err != nil {
 			log.Fatal(err)
 		}
-		structPrint(i)
 		ii = append(ii, i)
 	}
 
@@ -102,8 +99,6 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 	var ii []Item
 	decoder := json.NewDecoder(r.Body)
 	decoder.Decode(&ii)
-	structPrint(ii)
-
 	clear()
 	insert(ii)
 }
