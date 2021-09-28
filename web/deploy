@@ -11,10 +11,12 @@ fi
 
 echo "pulling latest changes..."
 git pull --quiet
-echo "building..."
+#echo "building..."
 #npm run-script build > "/dev/null" 2>&1
-echo "coping build to /var/www/martin..."
-#cp -r build/* /var/www/martin
-echo "reloading nginx..."
+echo "coping build to /var/www/plommon..."
+#cp -r build/* /var/www/plommon
+echo "reloading nginx.service..."
 systemctl reload nginx.service
+#echo "reloading lista.service..."
+#systemctl reload lista.service
 echo "done!"
