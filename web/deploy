@@ -1,0 +1,20 @@
+#!/bin/sh
+if [ $(uname -n) != debian ]; then
+    echo "this is not the debian server!"
+    exit
+fi
+
+if [ $(whoami) != root ]; then 
+    echo "Please run as root"
+    exit
+fi
+
+echo "pulling latest changes..."
+git pull --quiet
+echo "building..."
+#npm run-script build > "/dev/null" 2>&1
+echo "coping build to /var/www/martin..."
+#cp -r build/* /var/www/martin
+echo "reloading nginx..."
+systemctl reload nginx.service
+echo "done!"
