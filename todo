@@ -1,0 +1,12 @@
+-- WEB
+- css
+- drag order
+- star
+
+- deploy?
+- login?
+
+-- SERVER
+
+- dont clear() before insert(), need to update uuid if same
+- fix order issue (probably due to PK)
