@@ -45,7 +45,7 @@ type Visibility
 
 
 type Msg
-    = Completed
+    = Toggle
     | Delete
     | Focus String
     | EditChange String
@@ -57,8 +57,8 @@ type Msg
 update : Msg -> Model -> Maybe Model
 update msg model =
     case msg of
-        Completed ->
-            Just { model | completed = True }
+        Toggle ->
+            Just { model | completed = not model.completed }
 
         EditChange edit ->
             Just { model | edit = Just edit }
@@ -90,7 +90,7 @@ view model =
         [ case model.visibility of
             Normal ->
                 li []
-                    [ input [ class "check", type_ "checkbox", checked model.completed, onClick Completed ] []
+                    [ input [ class "check", type_ "checkbox", checked model.completed, onClick Toggle ] []
                     , label [ onDoubleClick (Focus input_id) ] [ text model.description ]
                     , I.x |> I.toHtml [onClick Delete]
                     ]
