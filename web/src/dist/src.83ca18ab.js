@@ -7144,7 +7144,7 @@ var $author$project$Main$update = F2(
 					$elm$http$Http$get(
 						{
 							expect: A2($elm$http$Http$expectJson, $author$project$Main$FetchedItems, $author$project$Main$itemsDecoder),
-							url: 'http://localhost:4000/fetch'
+							url: 'http://plommon.duckdns.org:4000/fetch'
 						}));
 			case 'FetchedItems':
 				var res = msg.a;
@@ -7170,7 +7170,7 @@ var $author$project$Main$update = F2(
 							body: $elm$http$Http$jsonBody(
 								$author$project$Main$itemsEncoder(model.items)),
 							expect: $elm$http$Http$expectString($author$project$Main$SavedItems),
-							url: 'http://localhost:4000/post'
+							url: 'http://plommon.duckdns.org:4000/post'
 						}));
 			case 'SavedItems':
 				var res = msg.a;
@@ -7701,4 +7701,4 @@ _Main.Elm.Main.init({
   node: document.querySelector('main')
 });
 },{"./Main.elm":"asWa","./styles.css":"Tnu0"}]},{},["Focm"], null)
-//# sourceMappingURL=/src.af69bf91.js.map
+//# sourceMappingURL=/src.83ca18ab.js.map
