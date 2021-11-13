@@ -27,17 +27,17 @@ func structPrint(v interface{}) {
 }
 
 func database() *sql.DB {
-	db, err := sql.Open("mysql", "lingon:marmar@(188.149.190.213)/lista")
+	db, err := sql.Open("mysql", os.Getenv("DB_LISTA_IP"))
 	if err != nil {
 		log.Fatal(err)
 	}
 	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
-	}else{
-        fmt.Println("connected to db!")
-    }
-    return db
+	} else {
+		fmt.Println("connected to db!")
+	}
+	return db
 }
 
 type Item struct {
@@ -49,7 +49,7 @@ type Item struct {
 var db *sql.DB
 
 func handleFetch(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("get")
+	fmt.Println("get")
 	w.Header().Add("Access-Control-Allow-Origin", "*")
 	rows, err := db.Query("SELECT * FROM items")
 	if err != nil {
@@ -71,8 +71,8 @@ func handleFetch(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-    
-    structPrint(ii)
+
+	structPrint(ii)
 
 	fmt.Fprint(w, string(j))
 }
@@ -93,7 +93,7 @@ func insert(ii []Item) {
 }
 
 func handlePost(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("get")
+	fmt.Println("get")
 	w.Header().Add("Access-Control-Allow-Origin", "*")
 	w.Header().Add("Access-Control-Request-Method", "POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length")
@@ -113,7 +113,7 @@ func main() {
 	db = database()
 
 	http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-	    w.Header().Add("Access-Control-Allow-Origin", "*")
+		w.Header().Add("Access-Control-Allow-Origin", "*")
 
 		fmt.Fprint(w, "hello world")
 	})
