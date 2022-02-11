@@ -39,7 +39,7 @@ init : () -> ( Model, Cmd Msg )
 init _ =
     ( { items = []
       , entry = ""
-      , visibility = All
+      , visibility = Active
       , httpState = Loading
       }
     , Cmd.none
@@ -176,50 +176,50 @@ subscriptions _ =
 view : Model -> Html Msg
 view model =
     div
-        [ class "main"
+        [ style "width" "50%"
+        , style "margin" "auto"
+        , style "display" "flex"
+        , style "flex-direction" "column"
         ]
-        [ itemInput model
-        , itemList model.items model.visibility
+        [ buttons
+        , inputForm model
+        , list model.items model.visibility
         ]
 
 
-itemInput : Model -> Html Msg
-itemInput model =
+buttons : Html Msg
+buttons =
     div
-        [ class "itemInput"
+        [ style "width" "100%"
         ]
         [ button [ onClick (ChangeVisibility All) ] [ text "all" ]
         , button [ onClick (ChangeVisibility Active) ] [ text "active" ]
         , button [ onClick (ChangeVisibility Completed) ] [ text "completed" ]
-        , button [ onClick Fetch ] [ text "fetch" ]
-        , button [ onClick Save ] [ text "save" ]
-        , Html.form [ onSubmit GenerateUuid ]
+        , button [ onClick Fetch, style "float" "right" ] [ text "fetch" ]
+        , button [ onClick Save, style "float" "right" ] [ text "save" ]
+        ]
+
+
+inputForm : Model -> Html Msg
+inputForm model =
+    div []
+        [ Html.form [ onSubmit GenerateUuid ]
             [ input
                 [ placeholder "add item"
                 , value model.entry
                 , onInput EntryChange
                 , autofocus True
+                , style "width" "100%"
                 ]
                 []
             ]
         ]
 
 
-itemList : List Item.Model -> Visibility -> Html Msg
-itemList items visibility =
-    let
-        visibleItems =
-            case visibility of
-                All ->
-                    items
-
-                Active ->
-                    List.filter (\item -> item.completed == False) items
-
-                Completed ->
-                    List.filter (\item -> item.completed == True) items
-    in
-    div [ class "itemList"
+list : List Item.Model -> Visibility -> Html Msg
+list items visibility =
+    div
+        [ style "width" "100%"
         ]
         (List.map
             (\item ->
@@ -232,7 +232,16 @@ itemList items visibility =
                 in
                 Html.map (\msg -> UpdateItem msg i) v
             )
-            visibleItems
+            (case visibility of
+                All ->
+                    items
+
+                Active ->
+                    List.filter (\item -> not item.completed) items
+
+                Completed ->
+                    List.filter (\item -> item.completed) items
+            )
         )
 
 
