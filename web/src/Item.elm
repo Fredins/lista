@@ -1,8 +1,8 @@
 module Item exposing (..)
 
 import Html exposing (Attribute, Html , input, label, li, text, div)
-import Html.Attributes exposing (..)
-import Html.Events exposing (keyCode, on, onClick, onDoubleClick, onInput, onSubmit)
+import Html.Attributes exposing (style, class, type_, checked, id, value)
+import Html.Events exposing (keyCode, on, onClick, onDoubleClick, onInput)
 import Json.Decode as D
 import UUID exposing (UUID)
 import FeatherIcons as I
@@ -86,17 +86,18 @@ view model =
         input_id =
             "input_" ++ UUID.toString model.uuid
     in
-    li []
+    li [ style "list-style-type" "none"]
         [ case model.visibility of
             Normal ->
-                li []
+                div []
                     [ input [ class "check", type_ "checkbox", checked model.completed, onClick Toggle ] []
                     , label [ onDoubleClick (Focus input_id) ] [ text model.description ]
-                    , I.x |> I.toHtml [onClick Delete]
+                    , I.x |> I.withSize 16 |> I.toHtml [onClick Delete, style "float" "right"]
+        
                     ]
 
             Editing ->
-                li []
+                div []
                     [ input 
                     [  class "edit", id input_id
                     , onInput EditChange, onFinish EditCommit EditCancel NoOp

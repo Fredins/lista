@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "cssnano": "^5.0.8",
-    "elm-hot": "^1.1.6",
-    "node-elm-compiler": "^5.0.6",
-    "postcss": "^8.3.8"
-  }
-}
