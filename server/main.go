@@ -27,7 +27,7 @@ func structPrint(v interface{}) {
 }
 
 func database() *sql.DB {
-	db, err := sql.Open("mysql", os.Getenv("DSN_LISTA"))
+	db, err := sql.Open("mysql", os.Getenv("DB_LISTA_IP"))
 	if err != nil {
 		log.Fatal(err)
 	}
