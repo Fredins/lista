@@ -126,7 +126,7 @@ update msg model =
         Fetch ->
             ( model
             , Http.get
-                { url = "http://plommon.duckdns.org/fetch"
+                { url = "http://lista.fredin.org/fetch"
                 , expect = Http.expectJson FetchedItems itemsDecoder
                 }
             )
@@ -144,7 +144,7 @@ update msg model =
             , Http.post
                 { body = Http.jsonBody (itemsEncoder model.items)
                 , expect = Http.expectString SavedItems
-                , url = "http://plommon.duckdns.org/post"
+                , url = "http://lista.fredin.org/post"
                 }
             )
 

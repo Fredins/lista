@@ -7020,7 +7020,7 @@ var $author$project$Main$update = F2(
 					$elm$http$Http$get(
 						{
 							ak: A2($elm$http$Http$expectJson, $author$project$Main$FetchedItems, $author$project$Main$itemsDecoder),
-							aL: 'http://plommon.duckdns.org/fetch'
+							aL: 'http://lista.fredin.org/fetch'
 						}));
 			case 6:
 				var res = msg.a;
@@ -7046,7 +7046,7 @@ var $author$project$Main$update = F2(
 							aT: $elm$http$Http$jsonBody(
 								$author$project$Main$itemsEncoder(model.m)),
 							ak: $elm$http$Http$expectString($author$project$Main$SavedItems),
-							aL: 'http://plommon.duckdns.org/post'
+							aL: 'http://lista.fredin.org/post'
 						}));
 			case 8:
 				var res = msg.a;
